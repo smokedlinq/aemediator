@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatR.Azure.EventGrid", "src\MediatR.Azure.EventGrid.csproj", "{2F5CFC48-5DEB-4BA6-B009-E964C96E28BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatR.Azure.EventGrid.Tests", "test\MediatR.Azure.EventGrid.Tests.csproj", "{872B9D13-FACA-4C8D-BA50-B7E7555336D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F5CFC48-5DEB-4BA6-B009-E964C96E28BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F5CFC48-5DEB-4BA6-B009-E964C96E28BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F5CFC48-5DEB-4BA6-B009-E964C96E28BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F5CFC48-5DEB-4BA6-B009-E964C96E28BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{872B9D13-FACA-4C8D-BA50-B7E7555336D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{872B9D13-FACA-4C8D-BA50-B7E7555336D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{872B9D13-FACA-4C8D-BA50-B7E7555336D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{872B9D13-FACA-4C8D-BA50-B7E7555336D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

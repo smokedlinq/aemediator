@@ -1,0 +1,5 @@
+{
+    "editor.renderWhitespace": "trailing",
+    "editor.trimAutoWhitespace": true,
+    "files.trimTrailingWhitespace": true
+}
