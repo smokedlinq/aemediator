@@ -94,7 +94,9 @@ app.MapPost("/api/events", async (HttpContext context, CancellationToken cancell
 
 ## Handling Events
 
-By default, MediatR will invoke each `INotificationHandler<T>` in a sequential manner. However, as of MediatR 12.0.0, you can now parallelize the notification with the `TaskWhenAllPublisher` strategy. For more information, see [pull request 838](https://github.com/jbogard/MediatR/pull/838). Regardless of the strategy you choose, keep in mind that handlers should be idempotent because any failures may require reprocessing of the event.
+By default, MediatR will invoke each `INotificationHandler<T>` in a sequential manner. However, as of MediatR 12.0.0, you can now parallelize the notification with the `TaskWhenAllPublisher` strategy. For more information, see [pull request 838](https://github.com/jbogard/MediatR/pull/838).
+
+Regardless of the notification strategy you choose, keep in mind that handlers should be idempotent because any failures may require reprocessing of the event.
 
 To handle `EventGridEvent` objects, implement `IEventGridEventHandler<T>`:
 
