@@ -7,7 +7,7 @@
 [![NuGet](https://img.shields.io/nuget/dt/MediatR.Azure.EventGrid.svg)](https://www.nuget.org/packages/MediatR.Azure.EventGrid)
 [![NuGet](https://img.shields.io/nuget/vpre/MediatR.Azure.EventGrid.svg)](https://www.nuget.org/packages/MediatR.Azure.EventGrid)
 
-A [MediatR](/jbogard/MediatR) wrapper for Azure Event Grid.
+A [MediatR](/jbogard/MediatR) bridge for Azure Event Grid.
 
 ## Installing MediatR.Azure.EventGrid
 
