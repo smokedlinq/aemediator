@@ -4,6 +4,7 @@
     <Authors>Adam Weigert</Authors>
     <Description>A MediatR bridge for Azure Event Grid.</Description>
     <Copyright>Copyright Adam Weigert</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -19,6 +20,10 @@
     <Deterministic>true</Deterministic>
     <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../README.md" pack="true" PackagePath="." />
+  </ItemGroup>
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
