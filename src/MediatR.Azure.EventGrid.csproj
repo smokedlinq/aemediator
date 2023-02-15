@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Messaging.EventGrid" Version="4.13.0" />
-    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="MediatR" Version="12.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.52.0.60960">
       <PrivateAssets>all</PrivateAssets>
