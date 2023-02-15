@@ -4,20 +4,20 @@ using System.Reflection;
 
 namespace MediatR.Azure.EventGrid;
 
-internal static class EventNotificationFactory
+internal static class EventGridNotificationFactory
 {
-    private delegate INotification EventNotificationFactoryDelegate(object @event, object? data);
-    private static readonly ConcurrentDictionary<Type, EventNotificationFactoryDelegate> Delegates = new();
+    private delegate INotification EventGridNotificationFactoryDelegate(object @event, object? data);
+    private static readonly ConcurrentDictionary<Type, EventGridNotificationFactoryDelegate> Delegates = new();
 
     public static object Create<T>(T @event, Type dataType, object? data)
         where T : class
     {
-        var notificationType = typeof(EventNotification<,>).MakeGenericType(typeof(T), dataType);
+        var notificationType = typeof(EventGridNotification<,>).MakeGenericType(typeof(T), dataType);
         var factory = Delegates.GetOrAdd(notificationType, _ => CreateDelegate(notificationType, typeof(T), dataType));
         return factory(@event, data);
     }
 
-    private static EventNotificationFactoryDelegate CreateDelegate(Type notificationType, Type eventType, Type dataType)
+    private static EventGridNotificationFactoryDelegate CreateDelegate(Type notificationType, Type eventType, Type dataType)
     {
         var parameterTypes = new[] { eventType, dataType };
         var constructor = notificationType.GetConstructor(BindingFlags.Public | BindingFlags.Instance, parameterTypes)
@@ -27,7 +27,7 @@ internal static class EventNotificationFactory
         var castEventParameter = Expression.Convert(@event, eventType);
         var castDataParameter = Expression.Convert(data, dataType);
         var @new = Expression.New(constructor, castEventParameter, castDataParameter);
-        var lambda = Expression.Lambda<EventNotificationFactoryDelegate>(@new, @event, data);
+        var lambda = Expression.Lambda<EventGridNotificationFactoryDelegate>(@new, @event, data);
         return lambda.Compile();
     }
 }

@@ -31,7 +31,7 @@ public class MediatorTests
         // Arrange
         var handler = Substitute.For<MockEventHandler<string?>>();
         using var serviceProvider = new ServiceCollection()
-            .AddTransient<INotificationHandler<EventNotification<EventGridEvent, string?>>>(_ => handler)
+            .AddTransient<INotificationHandler<EventGridNotification<EventGridEvent, string?>>>(_ => handler)
             .AddMediatR(typeof(MediatorTests).Assembly)
             .AddEventGridMediatR(builder => builder.AddDataType<string>("eventType", "dataVersion"))
             .BuildServiceProvider();
@@ -52,7 +52,7 @@ public class MediatorTests
         // Arrange
         var handler = Substitute.For<MockEventHandler<string?>>();
         using var serviceProvider = new ServiceCollection()
-            .AddTransient<INotificationHandler<EventNotification<CloudEvent, string?>>>(_ => handler)
+            .AddTransient<INotificationHandler<EventGridNotification<CloudEvent, string?>>>(_ => handler)
             .AddMediatR(typeof(MediatorTests).Assembly)
             .AddEventGridMediatR(builder => builder.AddDataType<string>("type"))
             .BuildServiceProvider();
@@ -73,7 +73,7 @@ public class MediatorTests
         // Arrange
         var handler = Substitute.For<MockEventHandler<string>>();
         using var serviceProvider = new ServiceCollection()
-            .AddTransient<INotificationHandler<EventNotification<EventGridEvent, string>>>(_ => handler)
+            .AddTransient<INotificationHandler<EventGridNotification<EventGridEvent, string>>>(_ => handler)
             .AddMediatR(typeof(MediatorTests).Assembly)
             .AddEventGridMediatR(builder => builder.AddDataType<string>("eventType", "dataVersion"))
             .BuildServiceProvider();
@@ -94,7 +94,7 @@ public class MediatorTests
         // Arrange
         var handler = Substitute.For<MockEventHandler<string>>();
         using var serviceProvider = new ServiceCollection()
-            .AddTransient<INotificationHandler<EventNotification<CloudEvent, string>>>(_ => handler)
+            .AddTransient<INotificationHandler<EventGridNotification<CloudEvent, string>>>(_ => handler)
             .AddMediatR(typeof(MediatorTests).Assembly)
             .AddEventGridMediatR(builder => builder.AddDataType<string>("type"))
             .BuildServiceProvider();
@@ -115,7 +115,7 @@ public class MediatorTests
         // Arrange
         var handler = Substitute.For<MockEventHandler<StorageBlobCreatedEventData>>();
         using var serviceProvider = new ServiceCollection()
-            .AddTransient<INotificationHandler<EventNotification<EventGridEvent, StorageBlobCreatedEventData>>>(_ => handler)
+            .AddTransient<INotificationHandler<EventGridNotification<EventGridEvent, StorageBlobCreatedEventData>>>(_ => handler)
             .AddMediatR(typeof(MediatorTests).Assembly)
             .AddEventGridMediatR(builder => builder.AddDataType<string>("eventType"))
             .BuildServiceProvider();
@@ -160,7 +160,7 @@ public class MediatorTests
         // Arrange
         var handler = Substitute.For<MockEventHandler<StorageBlobCreatedEventData>>();
         using var serviceProvider = new ServiceCollection()
-            .AddTransient<INotificationHandler<EventNotification<CloudEvent, StorageBlobCreatedEventData>>>(_ => handler)
+            .AddTransient<INotificationHandler<EventGridNotification<CloudEvent, StorageBlobCreatedEventData>>>(_ => handler)
             .AddMediatR(typeof(MediatorTests).Assembly)
             .AddEventGridMediatR(builder => builder.AddDataType<string>("eventType"))
             .BuildServiceProvider();

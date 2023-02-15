@@ -37,7 +37,7 @@ internal sealed class DefaultEventGridMediator : EventGridMediator
 
         type ??= eventData?.GetType() ?? throw new EventDataTypeNotFoundException();
 
-        var notification = EventNotificationFactory.Create(@event, type, eventData);
+        var notification = EventGridNotificationFactory.Create(@event, type, eventData);
 
         await _mediator.Publish(notification, cancellationToken).ConfigureAwait(false);
     }
