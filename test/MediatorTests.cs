@@ -29,7 +29,7 @@ public class MediatorTests
     public async Task ShouldReceiveNotification_WhenEventGridEventIsPublishedAndEventDataIsNull()
     {
         // Arrange
-        var handler = Substitute.For<EventHandler<string?>>();
+        var handler = Substitute.For<MockEventHandler<string?>>();
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventNotification<EventGridEvent, string?>>>(_ => handler)
             .AddMediatR(typeof(MediatorTests).Assembly)
@@ -50,7 +50,7 @@ public class MediatorTests
     public async Task ShouldReceiveNotification_WhenCloudEventIsPublishedAndEventDataIsNull()
     {
         // Arrange
-        var handler = Substitute.For<EventHandler<string?>>();
+        var handler = Substitute.For<MockEventHandler<string?>>();
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventNotification<CloudEvent, string?>>>(_ => handler)
             .AddMediatR(typeof(MediatorTests).Assembly)
@@ -71,7 +71,7 @@ public class MediatorTests
     public async Task ShouldReceiveNotification_WhenEventGridEventIsPublished()
     {
         // Arrange
-        var handler = Substitute.For<EventHandler<string>>();
+        var handler = Substitute.For<MockEventHandler<string>>();
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventNotification<EventGridEvent, string>>>(_ => handler)
             .AddMediatR(typeof(MediatorTests).Assembly)
@@ -92,7 +92,7 @@ public class MediatorTests
     public async Task ShouldReceiveNotification_WhenCloudEventIsPublished()
     {
         // Arrange
-        var handler = Substitute.For<EventHandler<string>>();
+        var handler = Substitute.For<MockEventHandler<string>>();
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventNotification<CloudEvent, string>>>(_ => handler)
             .AddMediatR(typeof(MediatorTests).Assembly)
@@ -113,7 +113,7 @@ public class MediatorTests
     public async Task ShouldReceiveNotification_WhenSystemEventAsEventGridEvent()
     {
         // Arrange
-        var handler = Substitute.For<EventHandler<StorageBlobCreatedEventData>>();
+        var handler = Substitute.For<MockEventHandler<StorageBlobCreatedEventData>>();
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventNotification<EventGridEvent, StorageBlobCreatedEventData>>>(_ => handler)
             .AddMediatR(typeof(MediatorTests).Assembly)
@@ -158,7 +158,7 @@ public class MediatorTests
     public async Task ShouldReceiveNotification_WhenSystemEventAsCloudEvent()
     {
         // Arrange
-        var handler = Substitute.For<EventHandler<StorageBlobCreatedEventData>>();
+        var handler = Substitute.For<MockEventHandler<StorageBlobCreatedEventData>>();
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventNotification<CloudEvent, StorageBlobCreatedEventData>>>(_ => handler)
             .AddMediatR(typeof(MediatorTests).Assembly)
@@ -199,7 +199,7 @@ public class MediatorTests
             .HandleAsync(cloudEvent, Arg.Any<StorageBlobCreatedEventData>(), Arg.Any<CancellationToken>());
     }
 
-    public abstract class EventHandler<T> : IEventGridEventHandler<T>, ICloudEventHandler<T>
+    public abstract class MockEventHandler<T> : IEventGridEventHandler<T>, ICloudEventHandler<T>
     {
         public abstract Task HandleAsync(EventGridEvent eventGridEvent, T data, CancellationToken cancellationToken);
         public abstract Task HandleAsync(CloudEvent cloudEvent, T data, CancellationToken cancellationToken);
