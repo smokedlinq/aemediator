@@ -20,7 +20,7 @@ internal static class EventNotificationFactory
     private static EventNotificationFactoryDelegate CreateDelegate(Type notificationType, Type eventType, Type dataType)
     {
         var parameterTypes = new[] { eventType, dataType };
-        var constructor = notificationType.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, parameterTypes)
+        var constructor = notificationType.GetConstructor(BindingFlags.Public | BindingFlags.Instance, parameterTypes)
             ?? throw new InvalidOperationException($"Could not find constructor for type '{notificationType}'.");
         var @event = Expression.Parameter(typeof(object), "event");
         var data = Expression.Parameter(typeof(object), "data");
