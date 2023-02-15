@@ -8,7 +8,7 @@ namespace MediatR.Azure.EventGrid.Tests;
 public class MediatorTests
 {
     [Fact]
-    public async Task ShouldThrowEventDataTypeNotFoundException_WhenEventDataTypeIsNotRegistered()
+    public async Task PublishAsync_ShouldThrowEventDataTypeNotFoundException_WhenEventDataTypeIsNotRegistered()
     {
         // Arrange
         using var serviceProvider = new ServiceCollection()
@@ -26,7 +26,7 @@ public class MediatorTests
     }
 
     [Fact]
-    public async Task ShouldReceiveNotification_WhenEventGridEventIsPublishedAndEventDataIsNull()
+    public async Task PublishAsync_ShouldReceiveNotification_WhenEventGridEventIsPublishedAndEventDataIsNull()
     {
         // Arrange
         var handler = Substitute.For<MockEventHandler<string?>>();
@@ -47,7 +47,7 @@ public class MediatorTests
     }
 
     [Fact]
-    public async Task ShouldReceiveNotification_WhenCloudEventIsPublishedAndEventDataIsNull()
+    public async Task PublishAsync_ShouldReceiveNotification_WhenCloudEventIsPublishedAndEventDataIsNull()
     {
         // Arrange
         var handler = Substitute.For<MockEventHandler<string?>>();
@@ -68,7 +68,7 @@ public class MediatorTests
     }
 
     [Fact]
-    public async Task ShouldReceiveNotification_WhenEventGridEventIsPublished()
+    public async Task PublishAsync_ShouldReceiveNotification_WhenEventGridEventIsPublished()
     {
         // Arrange
         var handler = Substitute.For<MockEventHandler<string>>();
@@ -89,7 +89,7 @@ public class MediatorTests
     }
 
     [Fact]
-    public async Task ShouldReceiveNotification_WhenCloudEventIsPublished()
+    public async Task PublishAsync_ShouldReceiveNotification_WhenCloudEventIsPublished()
     {
         // Arrange
         var handler = Substitute.For<MockEventHandler<string>>();
@@ -110,7 +110,7 @@ public class MediatorTests
     }
 
     [Fact]
-    public async Task ShouldReceiveNotification_WhenSystemEventAsEventGridEvent()
+    public async Task PublishAsync_ShouldReceiveNotification_WhenSystemEventAsEventGridEvent()
     {
         // Arrange
         var handler = Substitute.For<MockEventHandler<StorageBlobCreatedEventData>>();
@@ -155,7 +155,7 @@ public class MediatorTests
     }
 
     [Fact]
-    public async Task ShouldReceiveNotification_WhenSystemEventAsCloudEvent()
+    public async Task PublishAsync_ShouldReceiveNotification_WhenSystemEventAsCloudEvent()
     {
         // Arrange
         var handler = Substitute.For<MockEventHandler<StorageBlobCreatedEventData>>();
