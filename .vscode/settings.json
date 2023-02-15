@@ -1,5 +1,9 @@
 {
     "editor.renderWhitespace": "trailing",
     "editor.trimAutoWhitespace": true,
-    "files.trimTrailingWhitespace": true
+    "files.trimTrailingWhitespace": true,
+    "coverage-gutters.coverageFileNames": [
+        "coverage.net6.0.info",
+        "coverage.net7.0.info"
+    ],
 }

@@ -1,38 +1,48 @@
 {
 	"version": "2.0.0",
 	"tasks": [
-		{
-			"label": "clean",
-			"command": "dotnet",
-			"args": [
-				"clean",
-				"/property:GenerateFullPaths=true",
-				"/consoleloggerparameters:NoSummary"
-			],
-			"type": "process",
-			"problemMatcher": "$msCompile",
-			"options": {
-				"cwd": "${workspaceFolder}"
-			}
-		},
-		{
-			"label": "build",
-			"command": "dotnet",
-			"args": [
-				"build",
-				"/property:GenerateFullPaths=true",
-				"/consoleloggerparameters:NoSummary"
-			],
-			"type": "process",
-			"dependsOn": "clean",
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"problemMatcher": "$msCompile",
-			"options": {
-				"cwd": "${workspaceFolder}"
-			}
-		}
-	]
+        {
+            "label": "clean",
+            "command": "dotnet",
+            "args": [
+                "clean",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "type": "process",
+            "problemMatcher": "$msCompile",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "test",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "${workspaceFolder}/test/MediatR.Azure.EventGrid.Tests.csproj",
+                "/property:CollectCoverage=true",
+                "/property:CoverletOutputFormat=\"opencover,lcov\"",
+                "/property:CoverletOutput=\"${workspaceFolder}/test/.coverage/\""
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        }
+    ]
 }
