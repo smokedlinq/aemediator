@@ -3,13 +3,25 @@ using Azure.Messaging.EventGrid;
 
 namespace MediatR.Azure.EventGrid;
 
+/// <summary>
+/// Represents a deserializer for event data.
+/// </summary>
 public abstract class EventGridDataDeserializer
 {
+    /// <summary>
+    /// Deserializes the event data to a .NET object.
+    /// </summary>
     public abstract object? Deserialize(Type type, BinaryData data);
 
+    /// <summary>
+    /// Deserializes the <see cref="EventGridEvent" /> to a .NET object.
+    /// </summary>
     protected virtual object? Deserialize(EventGridEvent eventGridEvent, Type type, BinaryData data)
         => Deserialize(type, data);
 
+    /// <summary>
+    /// Deserializes the <see cref="CloudEvent" /> to a .NET object.
+    /// </summary>
     protected virtual object? Deserialize(CloudEvent cloudEvent, Type type, BinaryData data)
         => Deserialize(type, data);
 

@@ -11,13 +11,13 @@ A [MediatR](/jbogard/MediatR) wrapper for Azure Event Grid.
 
 ## Installing MediatR.Azure.EventGrid
 
-You can install the latest version of MediatR.Azure.EventGrid from NuGet:
+You can install the latest version of `MediatR.Azure.EventGrid` from NuGet by running the following command in PowerShell:
 
 ```powershell
 Install-Package MediatR.Azure.EventGrid
 ```
 
-Or via the .NET command line:
+Alternatively, you can use the .NET command line:
 
 ```dotnetcli
 dotnet add package MediatR.Azure.EventGrid
@@ -25,7 +25,7 @@ dotnet add package MediatR.Azure.EventGrid
 
 ## Getting Started
 
-To use `EventGridMediator`, you need to register it with the `IServiceCollection` in addition to MediatR:
+To use `EventGridMediator`, you need to register it with the `IServiceCollection` along with MediatR:
 
 ```csharp
 services
@@ -33,16 +33,16 @@ services
     .AddEventGridMediator();
 ```
 
-The [Event Grid system topics](https://learn.microsoft.com/azure/event-grid/system-topics) will automatically be deserialized.
+This will automatically deserialize the [Event Grid system topics](https://learn.microsoft.com/azure/event-grid/system-topics) data.
 
 ## Custom Events
 
-For custom events, you must register a custom type resolver:
+For custom events, you need to register each data type:
 
 - For `EventGridEvent` objects, the `EventType` and `DataVersion` properties are used to resolve the .NET type.
 - For `CloudEvent` objects, the `Type` and `DataSchema` properties are used to resolve the .NET type.
 
-To register a custom data type using the `AddDataType` method on the `EventGridMediatorBuilder`:
+To register a custom data type, use the `AddDataType` method on the `EventGridMediatorBuilder`:
 
 ```csharp
 services.AddEventGridMediator(builder =>
@@ -53,7 +53,7 @@ services.AddEventGridMediator(builder =>
 });
 ```
 
-An alternative is to use the `EventGridDataTypeAttribute` attribute on classes to register them through assembly discovery of public types:
+Alternatively, you can use the `EventGridDataTypeAttribute` attribute on classes to register them through assembly discovery of public types:
 
 ```csharp
 services.AddEventGridMediator(builder => builder.RegisterDataTypesFromAssembly(typeof(Program).Assembly));
@@ -66,7 +66,7 @@ public class MyCustomEventData
 
 ## Publishing Events to MediatR
 
-To publish `EventGridEvent` objects using the `EventGridMediator`:
+To publish `EventGridEvent` objects using the `EventGridMediator`, use the following code (the example is an ASP.NET Core Minimal API):
 
 ```csharp
 app.MapPost("/api/events", async (HttpContext context, CancellationToken cancellationToken) =>
@@ -79,7 +79,7 @@ app.MapPost("/api/events", async (HttpContext context, CancellationToken cancell
 });
 ```
 
-To publish `CloudEvent` objects:
+To publish `CloudEvent` objects, use the following code (the example is an ASP.NET Core Minimal API):
 
 ```csharp
 app.MapPost("/api/events", async (HttpContext context, CancellationToken cancellationToken) =>
@@ -94,7 +94,9 @@ app.MapPost("/api/events", async (HttpContext context, CancellationToken cancell
 
 ## Handling Events
 
-To handle `EventGridEvent` objects, create a class that implements `IEventGridEventHandler<T>`:
+By default, MediatR will invoke each `INotificationHandler<T>` in a sequential manner. However, as of MediatR 12.0.0, you can now parallelize the notification with the `TaskWhenAllPublisher` strategy. For more information, see [pull request 838](https://github.com/jbogard/MediatR/pull/838). Regardless of the strategy you choose, keep in mind that handlers should be idempotent because any failures may require reprocessing of the event.
+
+To handle `EventGridEvent` objects, implement `IEventGridEventHandler<T>`:
 
 ```csharp
 public record MyCustomEventData { }
@@ -109,7 +111,7 @@ public class MyCustomEventHandler : IEventGridEventHandler<MyCustomEventData>
 }
 ```
 
-To handle `CloudEvent` objects, create a class that implements `ICloudEventHandler<T>`:
+To handle `CloudEvent` objects, implement `ICloudEventHandler<T>`:
 
 ```csharp
 public record MyCustomEventData { }
