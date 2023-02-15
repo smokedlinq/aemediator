@@ -2,16 +2,16 @@ using System.Text.Json;
 
 namespace MediatR.Azure.EventGrid;
 
-internal sealed class DefaultEventDataDeserializer : EventDataDeserializer
+internal sealed class DefaultEventGridDataDeserializer : EventGridDataDeserializer
 {
     private readonly JsonSerializerOptions _options;
 
-    public DefaultEventDataDeserializer()
+    public DefaultEventGridDataDeserializer()
         : this(new JsonSerializerOptions())
     {
     }
 
-    public DefaultEventDataDeserializer(JsonSerializerOptions options)
+    public DefaultEventGridDataDeserializer(JsonSerializerOptions options)
     {
         _options = options ?? throw new ArgumentNullException(nameof(options));
     }

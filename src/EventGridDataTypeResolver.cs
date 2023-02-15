@@ -3,15 +3,15 @@ using Azure.Messaging.EventGrid;
 
 namespace MediatR.Azure.EventGrid;
 
-public abstract class EventDataTypeResolver
+public abstract class EventGridDataTypeResolver
 {
-    public abstract Type? Resolve(EventDataType eventDataType);
+    public abstract Type? Resolve(EventGridDataType eventDataType);
 
     public virtual Type? Resolve(EventGridEvent eventGridEvent)
-        => Resolve(new EventDataType(eventGridEvent.EventType, eventGridEvent.DataVersion));
+        => Resolve(new EventGridDataType(eventGridEvent.EventType, eventGridEvent.DataVersion));
 
     public virtual Type? Resolve(CloudEvent cloudEvent)
-        => Resolve(new EventDataType(cloudEvent.Type, cloudEvent.DataSchema));
+        => Resolve(new EventGridDataType(cloudEvent.Type, cloudEvent.DataSchema));
 
     internal Type? Resolve(object @event)
         => @event switch

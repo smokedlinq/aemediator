@@ -1,11 +1,11 @@
 namespace MediatR.Azure.EventGrid;
 
-public sealed class EventDataTypeRegistration
+public sealed class EventGridDataTypeRegistration
 {
-    public EventDataType DataType { get; }
+    public EventGridDataType DataType { get; }
     public Type Type { get; }
 
-    public EventDataTypeRegistration(EventDataType dataType, Type type)
+    public EventGridDataTypeRegistration(EventGridDataType dataType, Type type)
     {
         DataType = dataType ?? throw new ArgumentNullException(nameof(dataType));
         Type = type ?? throw new ArgumentNullException(nameof(type));

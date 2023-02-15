@@ -3,7 +3,7 @@ using Azure.Messaging.EventGrid;
 
 namespace MediatR.Azure.EventGrid;
 
-public abstract class EventDataDeserializer
+public abstract class EventGridDataDeserializer
 {
     public abstract object? Deserialize(Type type, BinaryData data);
 

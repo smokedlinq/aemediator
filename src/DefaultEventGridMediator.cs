@@ -7,10 +7,10 @@ namespace MediatR.Azure.EventGrid;
 internal sealed class DefaultEventGridMediator : EventGridMediator
 {
     private readonly IMediator _mediator;
-    private readonly EventDataTypeResolver _dataTypeResolver;
-    private readonly EventDataDeserializer _dataDeserializer;
+    private readonly EventGridDataTypeResolver _dataTypeResolver;
+    private readonly EventGridDataDeserializer _dataDeserializer;
 
-    public DefaultEventGridMediator(IMediator mediator, EventDataTypeResolver dataTypeResolver, EventDataDeserializer dataDeserializer)
+    public DefaultEventGridMediator(IMediator mediator, EventGridDataTypeResolver dataTypeResolver, EventGridDataDeserializer dataDeserializer)
     {
         _mediator = mediator;
         _dataTypeResolver = dataTypeResolver;
@@ -35,7 +35,7 @@ internal sealed class DefaultEventGridMediator : EventGridMediator
         var type = _dataTypeResolver.Resolve(@event);
         var eventData = _dataDeserializer.Deserialize(@event, type, data);
 
-        type ??= eventData?.GetType() ?? throw new EventDataTypeNotFoundException();
+        type ??= eventData?.GetType() ?? throw new EventGridDataTypeNotFoundException();
 
         var notification = EventGridNotificationFactory.Create(@event, type, eventData);
 

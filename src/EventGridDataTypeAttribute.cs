@@ -1,11 +1,12 @@
 namespace MediatR.Azure.EventGrid;
 
-public sealed record EventDataType
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
+public sealed class EventGridDataTypeAttribute : Attribute
 {
     public string Type { get; }
     public string? Version { get; }
 
-    public EventDataType(string type, string? version)
+    public EventGridDataTypeAttribute(string type, string? version = null)
     {
         Type = type ?? throw new ArgumentNullException(nameof(type));
         Version = version;

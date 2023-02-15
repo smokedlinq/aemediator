@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,8 +25,8 @@ public static class EventGridMediatorBuilderExtensions
         ArgumentNullException.ThrowIfNull(dataType);
         ArgumentNullException.ThrowIfNull(type);
 
-        var eventDataType = new EventDataType(dataType, dataVersion);
-        builder.Services.AddSingleton(new EventDataTypeRegistration(eventDataType, type));
+        var eventDataType = new EventGridDataType(dataType, dataVersion);
+        builder.Services.AddSingleton(new EventGridDataTypeRegistration(eventDataType, type));
 
         return builder;
     }
@@ -35,7 +36,23 @@ public static class EventGridMediatorBuilderExtensions
         ArgumentNullException.ThrowIfNull(builder);
         ArgumentNullException.ThrowIfNull(options);
 
-        builder.Services.AddSingleton<EventDataDeserializer>(_ => new DefaultEventDataDeserializer(options));
+        builder.Services.AddSingleton<EventGridDataDeserializer>(_ => new DefaultEventGridDataDeserializer(options));
+
+        return builder;
+    }
+
+    public static EventGridMediatorBuilder RegisterDataTypesFromAssembly(this EventGridMediatorBuilder builder, Assembly assembly)
+    {
+        ArgumentNullException.ThrowIfNull(assembly);
+
+        var types = assembly.GetExportedTypes()
+            .SelectMany(type => type.GetCustomAttributes<EventGridDataTypeAttribute>()
+                .Select(attribute => (attribute, type)));
+
+        foreach (var (attribute, type) in types)
+        {
+            builder.AddDataType(attribute.Type, attribute.Version, type);
+        }
 
         return builder;
     }

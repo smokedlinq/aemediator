@@ -22,7 +22,7 @@ public class MediatorTests
         var action = mediator.Invoking(_ => _.PublishAsync(eventGridEvent));
 
         // Assert
-        await action.Should().ThrowAsync<EventDataTypeNotFoundException>();
+        await action.Should().ThrowAsync<EventGridDataTypeNotFoundException>();
     }
 
     [Fact]
@@ -107,6 +107,48 @@ public class MediatorTests
         // Assert
         await handler.Received()
             .HandleAsync(cloudEvent, "data", Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
+    public async Task PublishAsync_ShouldReceiveMultipleNotifications_WhenMultipleEventGridEventsArePublished()
+    {
+        // Arrange
+        var handler = Substitute.For<MockEventHandler<string>>();
+        using var serviceProvider = new ServiceCollection()
+            .AddTransient<INotificationHandler<EventGridNotification<EventGridEvent, string>>>(_ => handler)
+            .AddMediatR(mediator => mediator.RegisterServicesFromAssembly(typeof(MediatorTests).Assembly))
+            .AddEventGridMediatR(builder => builder.AddDataType<string>("eventType", "dataVersion"))
+            .BuildServiceProvider();
+        var mediator = serviceProvider.GetRequiredService<EventGridMediator>();
+        var eventGridEvent = new EventGridEvent("subject", "eventType", "dataVersion", "data");
+
+        // Act
+        await mediator.PublishAsync(new[] { eventGridEvent, eventGridEvent });
+
+        // Assert
+        await handler.Received(2)
+            .HandleAsync(Arg.Any<EventGridEvent>(), "data", Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
+    public async Task PublishAsync_ShouldReceiveMultipleNotifications_WhenMultipleCloudEventsArePublished()
+    {
+        // Arrange
+        var handler = Substitute.For<MockEventHandler<string>>();
+        using var serviceProvider = new ServiceCollection()
+            .AddTransient<INotificationHandler<EventGridNotification<CloudEvent, string>>>(_ => handler)
+            .AddMediatR(mediator => mediator.RegisterServicesFromAssembly(typeof(MediatorTests).Assembly))
+            .AddEventGridMediatR(builder => builder.AddDataType<string>("type"))
+            .BuildServiceProvider();
+        var mediator = serviceProvider.GetRequiredService<EventGridMediator>();
+        var cloudEvent = new CloudEvent("source", "type", "data");
+
+        // Act
+        await mediator.PublishAsync(new[] { cloudEvent, cloudEvent });
+
+        // Assert
+        await handler.Received(2)
+            .HandleAsync(Arg.Any<CloudEvent>(), "data", Arg.Any<CancellationToken>());
     }
 
     [Fact]

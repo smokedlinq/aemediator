@@ -2,20 +2,20 @@ using System.Collections.Concurrent;
 
 namespace MediatR.Azure.EventGrid;
 
-internal sealed class DefaultEventDataTypeResolver : EventDataTypeResolver
+internal sealed class DefaultEventGridDataTypeResolver : EventGridDataTypeResolver
 {
-    private readonly ConcurrentDictionary<EventDataType, Type?> _cache = new();
+    private readonly ConcurrentDictionary<EventGridDataType, Type?> _cache = new();
 
-    public DefaultEventDataTypeResolver(IEnumerable<EventDataTypeRegistration> registrations)
+    public DefaultEventGridDataTypeResolver(IEnumerable<EventGridDataTypeRegistration> registrations)
     {
         foreach (var registration in registrations)
             _cache.TryAdd(registration.DataType, registration.Type);
     }
 
-    public override Type? Resolve(EventDataType eventDataType)
+    public override Type? Resolve(EventGridDataType eventDataType)
         => _cache.GetOrAdd(eventDataType, GetType);
 
-    private static Type? GetType(EventDataType type)
+    private static Type? GetType(EventGridDataType type)
         => Type.GetType(type.Type) ?? FindTypeInAssemblies(type.Type);
 
     private static Type? FindTypeInAssemblies(string type)

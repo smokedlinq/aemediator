@@ -10,8 +10,8 @@ public static class ServiceCollectionExtensions
         ArgumentNullException.ThrowIfNull(services);
 
         services.TryAddScoped<EventGridMediator, DefaultEventGridMediator>();
-        services.TryAddSingleton<EventDataDeserializer, DefaultEventDataDeserializer>();
-        services.TryAddSingleton<EventDataTypeResolver, DefaultEventDataTypeResolver>();
+        services.TryAddSingleton<EventGridDataDeserializer, DefaultEventGridDataDeserializer>();
+        services.TryAddSingleton<EventGridDataTypeResolver, DefaultEventGridDataTypeResolver>();
 
         var builder = new EventGridMediatorBuilder(services);
         configure?.Invoke(builder);
