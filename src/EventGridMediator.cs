@@ -23,7 +23,7 @@ public abstract class EventGridMediator
     /// </summary>
     public virtual async Task PublishAsync(IEnumerable<EventGridEvent> eventGridEvents, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(eventGridEvents);
+        _ = eventGridEvents ?? throw new ArgumentNullException(nameof(eventGridEvents));
 
         foreach (var @event in eventGridEvents)
         {
@@ -36,7 +36,7 @@ public abstract class EventGridMediator
     /// </summary>
     public virtual async Task PublishAsync(IEnumerable<CloudEvent> cloudEvents, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(cloudEvents);
+        _ = cloudEvents ?? throw new ArgumentNullException(nameof(cloudEvents));
 
         foreach (var @event in cloudEvents)
         {

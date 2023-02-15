@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static IServiceCollection AddEventGridMediatR(this IServiceCollection services, Action<EventGridMediatorBuilder>? configure = null)
     {
-        ArgumentNullException.ThrowIfNull(services);
+        _ = services ?? throw new ArgumentNullException(nameof(services));
 
         services.TryAddScoped<EventGridMediator, DefaultEventGridMediator>();
         services.TryAddSingleton<EventGridDataDeserializer, DefaultEventGridDataDeserializer>();

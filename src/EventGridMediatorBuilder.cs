@@ -39,9 +39,9 @@ public static class EventGridMediatorBuilderExtensions
     /// </summary>
     public static EventGridMediatorBuilder AddDataType(this EventGridMediatorBuilder builder, string dataType, string? dataVersion, Type type)
     {
-        ArgumentNullException.ThrowIfNull(builder);
-        ArgumentNullException.ThrowIfNull(dataType);
-        ArgumentNullException.ThrowIfNull(type);
+        _ = builder ?? throw new ArgumentNullException(nameof(builder));
+        _ = dataType ?? throw new ArgumentNullException(nameof(dataType));
+        _ = type ?? throw new ArgumentNullException(nameof(type));
 
         var eventDataType = new EventGridDataType(dataType, dataVersion);
         builder.Services.AddSingleton(new EventGridDataTypeRegistration(eventDataType, type));
@@ -54,7 +54,7 @@ public static class EventGridMediatorBuilderExtensions
     /// </summary>
     public static EventGridMediatorBuilder RegisterDataTypesFromAssembly(this EventGridMediatorBuilder builder, Assembly assembly)
     {
-        ArgumentNullException.ThrowIfNull(assembly);
+        _ = builder ?? throw new ArgumentNullException(nameof(builder));
 
         var types = assembly.GetExportedTypes()
             .SelectMany(type => type.GetCustomAttributes<EventGridDataTypeAttribute>()
@@ -73,8 +73,8 @@ public static class EventGridMediatorBuilderExtensions
     /// </summary>
     public static EventGridMediatorBuilder ConfigureJsonSerializerOptions(this EventGridMediatorBuilder builder, Action<JsonSerializerOptions> configure)
     {
-        ArgumentNullException.ThrowIfNull(builder);
-        ArgumentNullException.ThrowIfNull(configure);
+        _ = builder ?? throw new ArgumentNullException(nameof(builder));
+        _ = configure ?? throw new ArgumentNullException(nameof(configure));
 
         return ConfigureJsonSerializerOptions(builder, (_, options) => configure(options));
     }
@@ -84,8 +84,8 @@ public static class EventGridMediatorBuilderExtensions
     /// </summary>
     public static EventGridMediatorBuilder ConfigureJsonSerializerOptions(this EventGridMediatorBuilder builder, Action<IServiceProvider, JsonSerializerOptions> configure)
     {
-        ArgumentNullException.ThrowIfNull(builder);
-        ArgumentNullException.ThrowIfNull(configure);
+        _ = builder ?? throw new ArgumentNullException(nameof(builder));
+        _ = configure ?? throw new ArgumentNullException(nameof(configure));
 
         builder.Services.AddSingleton(serviceProvider =>
         {
@@ -103,7 +103,7 @@ public static class EventGridMediatorBuilderExtensions
     public static EventGridMediatorBuilder UseDataDeserializer<T>(this EventGridMediatorBuilder builder, Func<IServiceProvider, EventGridDataDeserializer>? factory = null)
         where T : EventGridDataDeserializer
     {
-        ArgumentNullException.ThrowIfNull(builder);
+        _ = builder ?? throw new ArgumentNullException(nameof(builder));
 
         _ = factory is null
             ? builder.Services.AddSingleton<EventGridDataDeserializer, T>()
@@ -118,7 +118,7 @@ public static class EventGridMediatorBuilderExtensions
     public static EventGridMediatorBuilder UseDataTypeResolver<T>(this EventGridMediatorBuilder builder, Func<IServiceProvider, EventGridDataTypeResolver>? factory = null)
         where T : EventGridDataTypeResolver
     {
-        ArgumentNullException.ThrowIfNull(builder);
+        _ = builder ?? throw new ArgumentNullException(nameof(builder));
 
         _ = factory is null
             ? builder.Services.AddSingleton<EventGridDataTypeResolver, T>()
@@ -133,7 +133,7 @@ public static class EventGridMediatorBuilderExtensions
     public static EventGridMediatorBuilder UseMediator<T>(this EventGridMediatorBuilder builder, Func<IServiceProvider, EventGridMediator>? factory = null)
         where T : EventGridMediator
     {
-        ArgumentNullException.ThrowIfNull(builder);
+        _ = builder ?? throw new ArgumentNullException(nameof(builder));
 
         _ = factory is null
             ? builder.Services.AddSingleton<EventGridMediator, T>()

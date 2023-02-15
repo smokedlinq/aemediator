@@ -19,13 +19,13 @@ internal sealed class DefaultEventGridMediator : EventGridMediator
 
     public override async Task PublishAsync(EventGridEvent eventGridEvent, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(eventGridEvent);
+        _ = eventGridEvent ?? throw new ArgumentNullException(nameof(eventGridEvent));
         await PublishAsync(eventGridEvent, eventGridEvent.Data, cancellationToken).ConfigureAwait(false);
     }
 
     public override async Task PublishAsync(CloudEvent cloudEvent, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(cloudEvent);
+        _ = cloudEvent ?? throw new ArgumentNullException(nameof(cloudEvent));
         await PublishAsync(cloudEvent, cloudEvent.Data, cancellationToken).ConfigureAwait(false);
     }
 
