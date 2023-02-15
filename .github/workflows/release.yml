@@ -39,10 +39,10 @@ jobs:
       run: dotnet test --configuration Release --no-build
 
     - name: Package
-      run: dotnet package --configuration Release --no-build --output ./artifacts
+      run: dotnet pack --configuration Release --no-build --output ./artifacts
 
     - name: Push to Nuget.org
-      run: dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json --skip-duplicate
       working-directory: ./artifacts
 
     - name: Push to GitHub
