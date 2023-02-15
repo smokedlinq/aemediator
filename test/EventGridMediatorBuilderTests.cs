@@ -1,3 +1,4 @@
+using MediatR.Azure.EventGrid.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MediatR.Azure.EventGrid.Tests;

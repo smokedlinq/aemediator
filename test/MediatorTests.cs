@@ -1,6 +1,7 @@
 ﻿using Azure.Messaging;
 using Azure.Messaging.EventGrid;
 using Azure.Messaging.EventGrid.SystemEvents;
+using MediatR.Azure.EventGrid.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MediatR.Azure.EventGrid.Tests;

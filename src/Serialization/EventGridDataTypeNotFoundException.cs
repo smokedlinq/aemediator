@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace MediatR.Azure.EventGrid;
+namespace MediatR.Azure.EventGrid.Serialization;
 
 /// <summary>
 /// Represents an exception that is thrown when the .NET type for event data could not be found.

@@ -1,7 +1,7 @@
 using Azure.Messaging;
 using Azure.Messaging.EventGrid;
 
-namespace MediatR.Azure.EventGrid;
+namespace MediatR.Azure.EventGrid.Serialization;
 
 /// <summary>
 /// Represents a resolver for event data types.
@@ -27,9 +27,9 @@ public abstract class EventGridDataTypeResolver
 
     internal Type? Resolve(object @event)
         => @event switch
-            {
-                EventGridEvent eventGridEvent => Resolve(eventGridEvent),
-                CloudEvent cloudEvent => Resolve(cloudEvent),
-                _ => throw new NotSupportedException($"The event type '{@event.GetType()}' is not supported.")
-            };
+        {
+            EventGridEvent eventGridEvent => Resolve(eventGridEvent),
+            CloudEvent cloudEvent => Resolve(cloudEvent),
+            _ => throw new NotSupportedException($"The event type '{@event.GetType()}' is not supported.")
+        };
 }

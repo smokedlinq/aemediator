@@ -1,7 +1,7 @@
 using Azure.Messaging;
 using Azure.Messaging.EventGrid;
 
-namespace MediatR.Azure.EventGrid;
+namespace MediatR.Azure.EventGrid.Serialization;
 
 /// <summary>
 /// Represents a deserializer for event data.

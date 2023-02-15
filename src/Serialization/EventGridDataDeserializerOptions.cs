@@ -1,6 +1,7 @@
 using System.Text.Json;
+using MediatR.Azure.EventGrid.Internals;
 
-namespace MediatR.Azure.EventGrid;
+namespace MediatR.Azure.EventGrid.Serialization;
 
 /// <summary>
 /// Represents options for the <see cref="DefaultEventGridDataDeserializer"/>.

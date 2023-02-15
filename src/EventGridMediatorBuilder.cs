@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text.Json;
+using MediatR.Azure.EventGrid.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MediatR.Azure.EventGrid;

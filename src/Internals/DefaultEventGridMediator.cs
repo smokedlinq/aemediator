@@ -1,8 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Azure.Messaging;
 using Azure.Messaging.EventGrid;
+using MediatR.Azure.EventGrid.Serialization;
 
-namespace MediatR.Azure.EventGrid;
+namespace MediatR.Azure.EventGrid.Internals;
 
 internal sealed class DefaultEventGridMediator : EventGridMediator
 {

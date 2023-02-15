@@ -1,4 +1,4 @@
-namespace MediatR.Azure.EventGrid;
+namespace MediatR.Azure.EventGrid.Serialization;
 
 /// <summary>
 /// Represents a dependency service registration of a data type for an <see cref="EventGridDataType"/>.

@@ -1,4 +1,6 @@
 using MediatR.Azure.EventGrid;
+using MediatR.Azure.EventGrid.Internals;
+using MediatR.Azure.EventGrid.Serialization;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection;

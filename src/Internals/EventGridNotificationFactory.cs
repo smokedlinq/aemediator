@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace MediatR.Azure.EventGrid;
+namespace MediatR.Azure.EventGrid.Internals;
 
 internal static class EventGridNotificationFactory
 {

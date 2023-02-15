@@ -1,6 +1,6 @@
 using Azure.Messaging.EventGrid;
 
-namespace MediatR.Azure.EventGrid;
+namespace MediatR.Azure.EventGrid.Serialization;
 
 /// <summary>
 /// Represents an attribute that specifies the data type of an <see cref="EventGridEvent"/>.

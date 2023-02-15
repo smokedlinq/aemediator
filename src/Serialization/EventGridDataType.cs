@@ -1,4 +1,4 @@
-namespace MediatR.Azure.EventGrid;
+namespace MediatR.Azure.EventGrid.Serialization;
 
 /// <summary>
 /// Represents the data type of an Event Grid event.
