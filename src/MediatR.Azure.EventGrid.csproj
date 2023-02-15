@@ -3,10 +3,12 @@
   <PropertyGroup>
     <Authors>Adam Weigert</Authors>
     <Description>A MediatR bridge for Azure Event Grid.</Description>
+    <Copyright>Copyright Adam Weigert</Copyright>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
+    <Features>strict</Features>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <MinVerTagPrefix>v</MinVerTagPrefix>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
