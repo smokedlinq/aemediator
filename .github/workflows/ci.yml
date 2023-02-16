@@ -72,6 +72,11 @@ jobs:
         New-Item -Path ./.sonar/scanner -ItemType Directory
         dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
 
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: csharp
+
     - name: Build and analyze
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -81,6 +86,11 @@ jobs:
         dotnet build
         dotnet test /property:CollectCoverage=true /property:CoverletOutputFormat=opencover /property:CoverletOutput=./coverage/
         ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:csharp"
 
     - uses: snyk/actions/dotnet@master
       env:

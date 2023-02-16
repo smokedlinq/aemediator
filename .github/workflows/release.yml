@@ -43,7 +43,9 @@ jobs:
       run: dotnet test --configuration Release --no-build
 
     - name: Package
-      run: dotnet pack ./src/MediatR.Azure.EventGrid.csproj --configuration Release --no-build --output ./artifacts
+      run: |
+        dotnet pack ./src/MediatR.Azure.EventGrid.Serialization/MediatR.Azure.EventGrid.Serialization.csproj --configuration Release --no-build --output ./artifacts
+        dotnet pack ./src/MediatR.Azure.EventGrid/MediatR.Azure.EventGrid.csproj --configuration Release --no-build --output ./artifacts
 
     - name: Push to Nuget.org
       run: dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json --skip-duplicate

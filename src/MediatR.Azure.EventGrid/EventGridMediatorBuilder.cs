@@ -16,12 +16,18 @@ public sealed class EventGridMediatorBuilder
     public EventGridMediatorBuilder(IServiceCollection services)
     {
         Services = services ?? throw new ArgumentNullException(nameof(services));
+        DataTypes = new EventGridDataTypeBuilder(services);
     }
 
     /// <summary>
     /// Gets the <see cref="IServiceCollection"/> where the <see cref="EventGridMediator"/> and related services are configured.
     /// </summary>
     public IServiceCollection Services { get; }
+
+    /// <summary>
+    /// Gets the <see cref="EventGridDataTypeBuilder"/> where the <see cref="EventGridDataType"/> and related services are configured.
+    /// </summary>
+    public EventGridDataTypeBuilder DataTypes { get; }
 }
 
 /// <summary>
@@ -29,46 +35,6 @@ public sealed class EventGridMediatorBuilder
 /// </summary>
 public static class EventGridMediatorBuilderExtensions
 {
-    /// <summary>
-    /// Adds a data type to the <see cref="EventGridMediatorBuilder"/>.
-    /// </summary>
-    public static EventGridMediatorBuilder AddDataType<T>(this EventGridMediatorBuilder builder, string? dataType = null, string? dataVersion = null)
-        => builder.AddDataType(dataType ?? typeof(T).Name, dataVersion, typeof(T));
-
-    /// <summary>
-    /// Adds a data type to the <see cref="EventGridMediatorBuilder"/>.
-    /// </summary>
-    public static EventGridMediatorBuilder AddDataType(this EventGridMediatorBuilder builder, string dataType, string? dataVersion, Type type)
-    {
-        _ = builder ?? throw new ArgumentNullException(nameof(builder));
-        _ = dataType ?? throw new ArgumentNullException(nameof(dataType));
-        _ = type ?? throw new ArgumentNullException(nameof(type));
-
-        var eventDataType = new EventGridDataType(dataType, dataVersion);
-        builder.Services.AddSingleton(new EventGridDataTypeRegistration(eventDataType, type));
-
-        return builder;
-    }
-
-    /// <summary>
-    /// Adds all types with the <see cref="EventGridDataTypeAttribute" /> from the specified assembly to the <see cref="EventGridMediatorBuilder"/>.
-    /// </summary>
-    public static EventGridMediatorBuilder RegisterDataTypesFromAssembly(this EventGridMediatorBuilder builder, Assembly assembly)
-    {
-        _ = builder ?? throw new ArgumentNullException(nameof(builder));
-
-        var types = assembly.GetExportedTypes()
-            .SelectMany(type => type.GetCustomAttributes<EventGridDataTypeAttribute>()
-                .Select(attribute => (attribute, type)));
-
-        foreach (var (attribute, type) in types)
-        {
-            builder.AddDataType(attribute.Type, attribute.Version, type);
-        }
-
-        return builder;
-    }
-
     /// <summary>
     /// Configures the <see cref="JsonSerializerOptions"/> to use.
     /// </summary>
@@ -90,7 +56,7 @@ public static class EventGridMediatorBuilderExtensions
 
         builder.Services.AddSingleton(serviceProvider =>
         {
-            var options = new EventGridDataDeserializerOptions();
+            var options = new EventGridDataSerializerOptions();
             configure(serviceProvider, options.JsonSerializerOptions);
             return options;
         });
@@ -99,16 +65,16 @@ public static class EventGridMediatorBuilderExtensions
     }
 
     /// <summary>
-    /// Configures the <see cref="EventGridDataDeserializer"/> to use.
+    /// Configures the <see cref="EventGridDataSerializer"/> to use.
     /// </summary>
-    public static EventGridMediatorBuilder UseDataDeserializer<T>(this EventGridMediatorBuilder builder, Func<IServiceProvider, EventGridDataDeserializer>? factory = null)
-        where T : EventGridDataDeserializer
+    public static EventGridMediatorBuilder UseDataDeserializer<T>(this EventGridMediatorBuilder builder, Func<IServiceProvider, EventGridDataSerializer>? factory = null)
+        where T : EventGridDataSerializer
     {
         _ = builder ?? throw new ArgumentNullException(nameof(builder));
 
         _ = factory is null
-            ? builder.Services.AddSingleton<EventGridDataDeserializer, T>()
-            : builder.Services.AddSingleton<EventGridDataDeserializer>(factory);
+            ? builder.Services.AddSingleton<EventGridDataSerializer, T>()
+            : builder.Services.AddSingleton<EventGridDataSerializer>(factory);
 
         return builder;
     }

@@ -34,7 +34,7 @@ public class MediatorTests
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventGridNotification<EventGridEvent, string?>>>(_ => handler)
             .AddMediatR(mediator => mediator.RegisterServicesFromAssembly(typeof(MediatorTests).Assembly))
-            .AddEventGridMediatR(builder => builder.AddDataType<string>("eventType", "dataVersion"))
+            .AddEventGridMediatR(builder => builder.DataTypes.Add<string>("eventType", "dataVersion"))
             .BuildServiceProvider();
         var mediator = serviceProvider.GetRequiredService<EventGridMediator>();
         var eventGridEvent = new EventGridEvent("subject", "eventType", "dataVersion", BinaryData.FromObjectAsJson<string?>(null));
@@ -55,7 +55,7 @@ public class MediatorTests
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventGridNotification<CloudEvent, string?>>>(_ => handler)
             .AddMediatR(mediator => mediator.RegisterServicesFromAssembly(typeof(MediatorTests).Assembly))
-            .AddEventGridMediatR(builder => builder.AddDataType<string>("type"))
+            .AddEventGridMediatR(builder => builder.DataTypes.Add<string>("type"))
             .BuildServiceProvider();
         var mediator = serviceProvider.GetRequiredService<EventGridMediator>();
         var cloudEvent = new CloudEvent("source", "type", null);
@@ -76,7 +76,7 @@ public class MediatorTests
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventGridNotification<EventGridEvent, string>>>(_ => handler)
             .AddMediatR(mediator => mediator.RegisterServicesFromAssembly(typeof(MediatorTests).Assembly))
-            .AddEventGridMediatR(builder => builder.AddDataType<string>("eventType", "dataVersion"))
+            .AddEventGridMediatR(builder => builder.DataTypes.Add<string>("eventType", "dataVersion"))
             .BuildServiceProvider();
         var mediator = serviceProvider.GetRequiredService<EventGridMediator>();
         var eventGridEvent = new EventGridEvent("subject", "eventType", "dataVersion", "data");
@@ -97,7 +97,7 @@ public class MediatorTests
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventGridNotification<CloudEvent, string>>>(_ => handler)
             .AddMediatR(mediator => mediator.RegisterServicesFromAssembly(typeof(MediatorTests).Assembly))
-            .AddEventGridMediatR(builder => builder.AddDataType<string>("type"))
+            .AddEventGridMediatR(builder => builder.DataTypes.Add<string>("type"))
             .BuildServiceProvider();
         var mediator = serviceProvider.GetRequiredService<EventGridMediator>();
         var cloudEvent = new CloudEvent("source", "type", "data");
@@ -118,7 +118,7 @@ public class MediatorTests
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventGridNotification<EventGridEvent, string>>>(_ => handler)
             .AddMediatR(mediator => mediator.RegisterServicesFromAssembly(typeof(MediatorTests).Assembly))
-            .AddEventGridMediatR(builder => builder.AddDataType<string>("eventType", "dataVersion"))
+            .AddEventGridMediatR(builder => builder.DataTypes.Add<string>("eventType", "dataVersion"))
             .BuildServiceProvider();
         var mediator = serviceProvider.GetRequiredService<EventGridMediator>();
         var eventGridEvent = new EventGridEvent("subject", "eventType", "dataVersion", "data");
@@ -139,7 +139,7 @@ public class MediatorTests
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventGridNotification<CloudEvent, string>>>(_ => handler)
             .AddMediatR(mediator => mediator.RegisterServicesFromAssembly(typeof(MediatorTests).Assembly))
-            .AddEventGridMediatR(builder => builder.AddDataType<string>("type"))
+            .AddEventGridMediatR(builder => builder.DataTypes.Add<string>("type"))
             .BuildServiceProvider();
         var mediator = serviceProvider.GetRequiredService<EventGridMediator>();
         var cloudEvent = new CloudEvent("source", "type", "data");
@@ -160,7 +160,7 @@ public class MediatorTests
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventGridNotification<EventGridEvent, StorageBlobCreatedEventData>>>(_ => handler)
             .AddMediatR(mediator => mediator.RegisterServicesFromAssembly(typeof(MediatorTests).Assembly))
-            .AddEventGridMediatR(builder => builder.AddDataType<string>("eventType"))
+            .AddEventGridMediatR(builder => builder.DataTypes.Add<string>("eventType"))
             .BuildServiceProvider();
         var mediator = serviceProvider.GetRequiredService<EventGridMediator>();
         var eventGridEvent = EventGridEvent.ParseMany(BinaryData.FromString(@"
@@ -205,7 +205,7 @@ public class MediatorTests
         using var serviceProvider = new ServiceCollection()
             .AddTransient<INotificationHandler<EventGridNotification<CloudEvent, StorageBlobCreatedEventData>>>(_ => handler)
             .AddMediatR(mediator => mediator.RegisterServicesFromAssembly(typeof(MediatorTests).Assembly))
-            .AddEventGridMediatR(builder => builder.AddDataType<string>("eventType"))
+            .AddEventGridMediatR(builder => builder.DataTypes.Add<string>("eventType"))
             .BuildServiceProvider();
         var mediator = serviceProvider.GetRequiredService<EventGridMediator>();
         var cloudEvent = CloudEvent.ParseMany(BinaryData.FromString(@"

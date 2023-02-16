@@ -9,9 +9,9 @@ internal sealed class DefaultEventGridMediator : EventGridMediator
 {
     private readonly IMediator _mediator;
     private readonly EventGridDataTypeResolver _dataTypeResolver;
-    private readonly EventGridDataDeserializer _dataDeserializer;
+    private readonly EventGridDataSerializer _dataDeserializer;
 
-    public DefaultEventGridMediator(IMediator mediator, EventGridDataTypeResolver dataTypeResolver, EventGridDataDeserializer dataDeserializer)
+    public DefaultEventGridMediator(IMediator mediator, EventGridDataTypeResolver dataTypeResolver, EventGridDataSerializer dataDeserializer)
     {
         _mediator = mediator;
         _dataTypeResolver = dataTypeResolver;

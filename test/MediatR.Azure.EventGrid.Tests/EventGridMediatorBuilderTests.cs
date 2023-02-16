@@ -13,7 +13,7 @@ public class EventGridMediatorBuilderTests
         var builder = new EventGridMediatorBuilder(services);
 
         // Act
-        builder.RegisterDataTypesFromAssembly(typeof(EventGridMediatorBuilderTests).Assembly);
+        builder.DataTypes.RegisterFromAssembly(typeof(EventGridMediatorBuilderTests).Assembly);
 
         // Assert
         using var serviceProvider = services.BuildServiceProvider();
@@ -35,7 +35,7 @@ public class EventGridMediatorBuilderTests
 
         // Assert
         using var serviceProvider = services.BuildServiceProvider();
-        var options = serviceProvider.GetRequiredService<EventGridDataDeserializerOptions>();
+        var options = serviceProvider.GetRequiredService<EventGridDataSerializerOptions>();
 
         options.JsonSerializerOptions.PropertyNameCaseInsensitive.Should().BeTrue();
     }
@@ -44,16 +44,16 @@ public class EventGridMediatorBuilderTests
     public void UseDataDeserializer_ShouldReplaceEventGridDataDeserializer_WhenInstanceIsProvided()
     {
         // Arrange
-        var deserializer = Substitute.For<EventGridDataDeserializer>();
+        var deserializer = Substitute.For<EventGridDataSerializer>();
         var services = new ServiceCollection();
         var builder = new EventGridMediatorBuilder(services);
 
         // Act
-        builder.UseDataDeserializer<EventGridDataDeserializer>(_ => deserializer);
+        builder.UseDataDeserializer<EventGridDataSerializer>(_ => deserializer);
 
         // Assert
         using var serviceProvider = services.BuildServiceProvider();
-        var dataDeserializer = serviceProvider.GetRequiredService<EventGridDataDeserializer>();
+        var dataDeserializer = serviceProvider.GetRequiredService<EventGridDataSerializer>();
 
         dataDeserializer.Should().Be(deserializer);
     }
