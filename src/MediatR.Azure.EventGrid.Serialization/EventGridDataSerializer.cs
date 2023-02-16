@@ -4,10 +4,15 @@ using Azure.Messaging.EventGrid;
 namespace MediatR.Azure.EventGrid.Serialization;
 
 /// <summary>
-/// Represents a deserializer for event data.
+/// Represents a serializer for event data.
 /// </summary>
-public abstract class EventGridDataDeserializer
+public abstract class EventGridDataSerializer
 {
+    /// <summary>
+    /// Serializes the event data to a <see cref="BinaryData"/>.
+    /// </summary>
+    public abstract BinaryData Serialize<T>(T data);
+
     /// <summary>
     /// Deserializes the event data to a .NET object.
     /// </summary>

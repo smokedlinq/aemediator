@@ -51,7 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\MediatR.Azure.EventGrid.csproj" />
+    <ProjectReference Include="..\..\src\MediatR.Azure.EventGrid\MediatR.Azure.EventGrid.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,6 +9,11 @@ namespace MediatR.Azure.EventGrid.Serialization;
 public abstract class EventGridDataTypeResolver
 {
     /// <summary>
+    /// Resolves the .NET type to an <see cref="EventGridDataType"/>.
+    /// </summary>
+    public abstract EventGridDataType? Resolve(Type type);
+
+    /// <summary>
     /// Resolves the event data type to a .NET type.
     /// </summary>
     public abstract Type? Resolve(EventGridDataType eventDataType);

@@ -1,12 +1,11 @@
 using System.Text.Json;
-using MediatR.Azure.EventGrid.Internals;
 
 namespace MediatR.Azure.EventGrid.Serialization;
 
 /// <summary>
-/// Represents options for the <see cref="DefaultEventGridDataDeserializer"/>.
+/// Represents options for the <see cref="EventGridDataSerializerOptions"/>.
 /// </summary>
-public class EventGridDataDeserializerOptions
+public class EventGridDataSerializerOptions
 {
     /// <summary>
     /// Gets the <see cref="JsonSerializerOptions"/> to use when deserializing event data.

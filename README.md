@@ -42,21 +42,21 @@ For custom events, you need to register each data type:
 - For `EventGridEvent` objects, the `EventType` and `DataVersion` properties are used to resolve the .NET type.
 - For `CloudEvent` objects, the `Type` and `DataSchema` properties are used to resolve the .NET type.
 
-To register a custom data type, use the `AddDataType` method on the `EventGridMediatorBuilder`:
+To register a custom data type, use the `DataTypes.Add` method on the `EventGridMediatorBuilder`:
 
 ```csharp
 services.AddEventGridMediator(builder =>
 {
-    builder
-        .AddDataType<MyCustomEventData>(nameof(MyCustomEventData))
-        .AddDataType<MyCustomEventDataV2>(nameof(MyCustomEventData), "2.0");
+    builder.DataTypes
+        .Add<MyCustomEventData>(nameof(MyCustomEventData))
+        .Add<MyCustomEventDataV2>(nameof(MyCustomEventData), "2.0");
 });
 ```
 
 Alternatively, you can use the `EventGridDataTypeAttribute` attribute on classes to register them through assembly discovery of public types:
 
 ```csharp
-services.AddEventGridMediator(builder => builder.RegisterDataTypesFromAssembly(typeof(Program).Assembly));
+services.AddEventGridMediator(builder => builder.DataTypes.RegisterFromAssembly(typeof(Program).Assembly));
 
 [EventGridDataType(nameof(MyCustomEventData))]
 public class MyCustomEventData
@@ -92,9 +92,45 @@ app.MapPost("/api/events", async (HttpContext context, CancellationToken cancell
 });
 ```
 
+## Publishing Events to Event Grid
+
+If you don't want to have a dependency on the `MediatR` package, you can still publish events to Event Grid by using the `MediatR.Azure.EventGrid.Serialization` package on its own.
+
+To publish `EventGridEvent` objects using the default serializer used by `EventGridMediator` to resolve the data type, use the following code (the example is an ASP.NET Core Minimal API):
+
+```csharp
+app.MapPost("/api/endpoint", async (HttpContext context, CancellationToken cancellationToken) =>
+{
+    var eventData = new MyCustomEventData();
+    var factory = context.RequestServices.GetRequiredService<EventGridEventFactory>();
+    var client = context.RequestServices.GetRequiredService<EventGridPublisherClient>();
+    var eventGridEvent = factory.Create("subject", eventData);
+
+    await client.SendEventAsync(eventGridEvent, cancellationToken);
+});
+
+public record MyCustomEventData { }
+```
+
+To publish `CloudEvent objects, use the following code (the example is an ASP.NET Core Minimal API):
+
+```csharp
+app.MapPost("/api/endpoint", async (HttpContext context, CancellationToken cancellationToken) =>
+{
+    var eventData = new MyCustomEventData();
+    var factory = context.RequestServices.GetRequiredService<CloudEventFactory>();
+    var client = context.RequestServices.GetRequiredService<EventGridPublisherClient>();
+    var cloudEvent = factory.Create("source", eventData);
+
+    await client.SendEventAsync(cloudEvent, cancellationToken);
+});
+
+public record MyCustomEventData { }
+```
+
 ## Handling Events
 
-By default, MediatR will invoke each `INotificationHandler<T>` in a sequential manner. However, as of MediatR 12.0.0, you can now parallelize the notification with the `TaskWhenAllPublisher` strategy. For more information, see [pull request 838](https://github.com/jbogard/MediatR/pull/838).
+By default, MediatR will invoke each `INotificationHandler<T>` sequentially. However, as of MediatR 12.0.0, you can now parallelize the notification with the `TaskWhenAllPublisher` strategy. For more information, see [pull request 838](https://github.com/jbogard/MediatR/pull/838).
 
 Regardless of the notification strategy you choose, keep in mind that handlers should be idempotent because any failures may require reprocessing of the event.
 

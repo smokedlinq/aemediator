@@ -17,10 +17,8 @@ public static class ServiceCollectionExtensions
     {
         _ = services ?? throw new ArgumentNullException(nameof(services));
 
+        services.AddEventGridDataTypes();
         services.TryAddScoped<EventGridMediator, DefaultEventGridMediator>();
-        services.TryAddSingleton<EventGridDataDeserializer, DefaultEventGridDataDeserializer>();
-        services.TryAddSingleton<EventGridDataDeserializerOptions>();
-        services.TryAddSingleton<EventGridDataTypeResolver, DefaultEventGridDataTypeResolver>();
 
         var builder = new EventGridMediatorBuilder(services);
         configure?.Invoke(builder);

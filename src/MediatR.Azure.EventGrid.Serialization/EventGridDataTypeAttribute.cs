@@ -5,7 +5,7 @@ namespace MediatR.Azure.EventGrid.Serialization;
 /// <summary>
 /// Represents an attribute that specifies the data type of an <see cref="EventGridEvent"/>.
 /// </summary>
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 public sealed class EventGridDataTypeAttribute : Attribute
 {
     /// <summary>
