@@ -36,7 +36,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     <PackageReference Include="MinVer" Version="4.3.0" PrivateAssets="All" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.0.0.68202">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.4.0.72892">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
