@@ -187,7 +187,7 @@ public class MediatorTests
                     ""dataVersion"": ""1"",
                     ""metadataVersion"": ""1""
                 }
-            ]")).First();
+            ]"))[0];
 
         // Act
         await mediator.PublishAsync(eventGridEvent);
@@ -232,7 +232,7 @@ public class MediatorTests
                         }
                     }
                 }
-            ]")).First();
+            ]"))[0];
 
         // Act
         await mediator.PublishAsync(cloudEvent);

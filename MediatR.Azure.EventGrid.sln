@@ -3,21 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatR.Azure.EventGrid", "src\MediatR.Azure.EventGrid\MediatR.Azure.EventGrid.csproj", "{2F5CFC48-5DEB-4BA6-B009-E964C96E28BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediatR.Azure.EventGrid", "src\MediatR.Azure.EventGrid\MediatR.Azure.EventGrid.csproj", "{2F5CFC48-5DEB-4BA6-B009-E964C96E28BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatR.Azure.EventGrid.Tests", "test\MediatR.Azure.EventGrid.Tests\MediatR.Azure.EventGrid.Tests.csproj", "{872B9D13-FACA-4C8D-BA50-B7E7555336D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediatR.Azure.EventGrid.Tests", "test\MediatR.Azure.EventGrid.Tests\MediatR.Azure.EventGrid.Tests.csproj", "{872B9D13-FACA-4C8D-BA50-B7E7555336D6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5269270C-668A-4D2C-A4D8-FF1A99D8DD4B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatR.Azure.EventGrid.Serialization", "src\MediatR.Azure.EventGrid.Serialization\MediatR.Azure.EventGrid.Serialization.csproj", "{C172C391-39F4-460C-93AD-195818F33D8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediatR.Azure.EventGrid.Serialization", "src\MediatR.Azure.EventGrid.Serialization\MediatR.Azure.EventGrid.Serialization.csproj", "{C172C391-39F4-460C-93AD-195818F33D8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2F5CFC48-5DEB-4BA6-B009-E964C96E28BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -33,7 +28,7 @@ Global
 		{C172C391-39F4-460C-93AD-195818F33D8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C172C391-39F4-460C-93AD-195818F33D8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{C172C391-39F4-460C-93AD-195818F33D8E} = {5269270C-668A-4D2C-A4D8-FF1A99D8DD4B}
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

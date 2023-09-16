@@ -5,6 +5,10 @@
     "editor.formatOnSave": true,
     "coverage-gutters.coverageFileNames": [
         "coverage.net6.0.info",
-        "coverage.net7.0.info"
+        "coverage.net7.0.info",
+        "coverage.net8.0.info"
     ],
+    "yaml.schemas": {
+        "https://json.schemastore.org/github-workflow.json": ".github/workflows/*.yml"
+    }
 }
