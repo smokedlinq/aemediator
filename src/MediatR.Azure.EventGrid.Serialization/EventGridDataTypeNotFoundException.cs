@@ -1,4 +1,4 @@
-using System.Runtime.Serialization;
+#pragma warning disable S3925 // "ISerializable" should be implemented correctly
 
 namespace MediatR.Azure.EventGrid.Serialization;
 
@@ -13,14 +13,6 @@ public class EventGridDataTypeNotFoundException : Exception
     /// </summary>
     public EventGridDataTypeNotFoundException()
         : base($"Could not find type for event data.")
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="EventGridDataTypeNotFoundException"/> class with the serialized data.
-    /// </summary>
-    protected EventGridDataTypeNotFoundException(SerializationInfo info, StreamingContext context)
-        : base(info, context)
     {
     }
 }

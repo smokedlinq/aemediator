@@ -1,0 +1,41 @@
+name-template: "$RESOLVED_VERSION"
+tag-template: "$RESOLVED_VERSION"
+categories:
+  - title: "🚀 Features"
+    labels:
+      - "feature"
+      - "enhancement"
+      - "new submodule"
+  - title: "🐛 Bug Fixes"
+    labels:
+      - "fix"
+      - "bugfix"
+      - "bug"
+  - title: "🧰 Maintenance"
+    label: "chore"
+change-template: "- $TITLE (#$NUMBER)"
+change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+version-resolver:
+  major:
+    labels:
+      - "major"
+  minor:
+    labels:
+      - "minor"
+  patch:
+    labels:
+      - "patch"
+  default: minor
+autolabeler:
+  - label: "bug"
+    title:
+      - "/fix/i"
+  - label: "enhancement"
+    title:
+      - "/update/i"
+  - label: "new submodule"
+    title:
+      - "/add.+module/i"
+      - "/new.+module/i"
+template: |
+  $CHANGES

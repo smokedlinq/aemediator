@@ -1,14 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Authors>Adam Weigert</Authors>
-    <Description>A MediatR bridge for Azure Event Grid.</Description>
-    <Copyright>Copyright Adam Weigert</Copyright>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
     <Features>strict</Features>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Adam Weigert</Authors>
+    <Description>A MediatR bridge for Azure Event Grid.</Description>
+    <Copyright>Copyright Adam Weigert</Copyright>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <MinVerTagPrefix>v</MinVerTagPrefix>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -26,24 +29,37 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-    <_Parameter1>MediatR.Azure.EventGrid.Tests</_Parameter1>
+      <_Parameter1>MediatR.Azure.EventGrid.Tests</_Parameter1>
     </AssemblyAttribute>
 
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>MediatR.Azure.EventGrid</_Parameter1>
-      </AssemblyAttribute>
+    </AssemblyAttribute>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Messaging.EventGrid" Version="4.17.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Azure.Messaging.EventGrid" Version="4.18.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     <PackageReference Include="MinVer" Version="4.3.0" PrivateAssets="All" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.4.0.72892">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.10.0.77988">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Text.Json" Version="7.0.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework) == 'net6.0'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[6.0.0,7.0.0)" />
+    <PackageReference Include="System.Text.Json" Version="[6.0.8,7.0.0)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework) == 'net7.0'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[7.0.0,8.0.0)" />
+    <PackageReference Include="System.Text.Json" Version="[7.0.3,8.0.0)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework) == 'net8.0'">
+    <PackageReference Include="System.Text.Json" Version="[8.0.0-rc.1.23419.4,9.0.0)" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[8.0.0-rc.1.23419.4,9.0.0)" />
   </ItemGroup>
 
 </Project>

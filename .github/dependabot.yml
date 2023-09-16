@@ -1,11 +1,21 @@
 version: 2
 updates:
-- package-ecosystem: "github-actions"
-  directory: "/"
-  schedule:
-    interval: "monthly"
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      GitHub Actions:
+        patterns:
+          - "*"
 
-- package-ecosystem: "nuget"
-  directory: "/"
-  schedule:
-    interval: "monthly"
+  # Maintain dependencies for NuGet
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      .NET NuGet Packages:
+        patterns:
+          - "*"

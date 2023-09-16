@@ -13,7 +13,7 @@ internal static class EventGridNotificationFactory
         where T : class
     {
         var notificationType = typeof(EventGridNotification<,>).MakeGenericType(typeof(T), dataType);
-        var factory = Delegates.GetOrAdd(notificationType, _ => CreateDelegate(notificationType, typeof(T), dataType));
+        var factory = Delegates.GetOrAdd(notificationType, notificationType => CreateDelegate(notificationType, typeof(T), dataType));
         return factory(@event, data);
     }
 
