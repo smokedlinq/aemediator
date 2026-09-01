@@ -16,17 +16,17 @@ jobs:
 
     steps:
       - name: Setup .NET 8.0.x
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 8.0.100-rc.1
 
       - name: Setup NuGet 6.x
-        uses: nuget/setup-nuget@v1
+        uses: nuget/setup-nuget@v4
         with:
           nuget-version: 6.x
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Restore
         run: dotnet restore
@@ -48,7 +48,7 @@ jobs:
         working-directory: ./artifacts
 
       - name: Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: artifacts
           path: artifacts/**/*
